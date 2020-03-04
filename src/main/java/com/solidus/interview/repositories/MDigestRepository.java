@@ -4,4 +4,5 @@ import com.solidus.interview.entities.MsgDigest;
 
 public interface MDigestRepository{
 	MsgDigest findByDigest(String digest);
+	List<MsgDigest> findListByDigest(String digest);
 }

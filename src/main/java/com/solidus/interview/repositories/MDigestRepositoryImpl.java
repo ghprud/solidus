@@ -26,6 +26,7 @@ public class MDigestRepositoryImpl implements MDigestRepository{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
+	
 	@Transactional(readOnly = true)
 	@Override
 	public MsgDigest findByDigest(String digest) {
@@ -48,5 +49,25 @@ public class MDigestRepositoryImpl implements MDigestRepository{
         return msgDigest;
 	}
 	
+	//return all the found values
+	@Transactional(readOnly = true)
+	@Override
+	public List<MsgDigest> findListByDigest(String digest) {
+		Map<String, String> queryParams = new HashMap<>();
+		MsgDigest msgDigest = null;
+		List<MsgDigest> searchResults = null;
+		
+		queryParams.put("digest", digest);
+		
+		System.out.println(queryParams.get("digest"));
+		
+		searchResults = jdbcTemplate.query(getDigest,
+                queryParams,
+                new BeanPropertyRowMapper<>(MsgDigest.class)
+        );
+		
+ 
+        return searchResults;
+	}
 	
 }
